@@ -1,15 +1,20 @@
-
-import './App.css';
-
-import PlaintextExample from "./login";
+import {
+    BrowserRouter as Router,
+    Route,
+    Routes
+} from 'react-router-dom';
+import PlaintextExample from './login';
+import MessageInBottle from './MessageInBottle';
 
 function App() {
-  return (
-      <div className="App">
-          <h1>Welcome to the sea</h1>
-        <PlaintextExample />
-      </div>
-  );
+    return (
+        <Router>
+            <Routes>
+                <Route path="/" element={<PlaintextExample />} />
+                <Route path="/message-in-bottle" element={<MessageInBottle />} />
+            </Routes>
+        </Router>
+    );
 }
 
 export default App;
