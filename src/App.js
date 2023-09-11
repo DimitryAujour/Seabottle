@@ -8,8 +8,10 @@ import MessageInBottle from './MessageInBottle';
 
 function App() {
     return (
+
         <Router>
             <Routes>
+
                 <Route path="/" element={<PlaintextExample />} />
                 <Route path="/message-in-bottle" element={<MessageInBottle />} />
             </Routes>
