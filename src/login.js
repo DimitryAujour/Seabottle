@@ -4,7 +4,9 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
+import logo from './logo.png'
 
+import React from "react";
 
 const StyledContainer = styled.div`
   padding-top: 50px;
@@ -41,8 +43,7 @@ function PlaintextExample() {
 
         <StyledContainer>
             <StyledHeader>
-                <img src="./logo.png" alt="logo image" />
-
+                <img src={logo}  alt="logo image" />
             </StyledHeader>
             <StyledForm>
 

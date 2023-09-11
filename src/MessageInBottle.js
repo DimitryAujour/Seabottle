@@ -1,7 +1,9 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form';
 import styled from 'styled-components';
-
+import bottleImage from './bottle.png';
+import { useNavigate } from 'react-router-dom';
+import Button from "react-bootstrap/Button";
 
 
 const StyledContainer = styled.div`
@@ -15,20 +17,30 @@ const StyledForm = styled(Form)`
 `;
 
 function MessageInBottle() {
+    let navigate = useNavigate();
+
+    const handleNavigation = () => {
+        navigate('/ReadBottle');
+    };
+
     return (
         <StyledContainer>
 
-<img src="."/>
+
             <StyledForm>
+                <img src={bottleImage}  alt="logo image" />
                 <h1>Leave a bottle?</h1>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                    <Form.Label>Email address</Form.Label>
-                    <Form.Control type="email" placeholder="name@example.com" />
+                    <Form.Label><h3>Title</h3> <br/></Form.Label>
+                    <Form.Control type="text" placeholder="name@example.com" />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                    <Form.Label>Your Message</Form.Label>
+                    <Form.Label><h3>Your Message</h3> <br/></Form.Label>
                     <Form.Control as="textarea" rows={3} />
                 </Form.Group>
+                <Button type="submit" onClick={handleNavigation}>Send</Button>
+                <br/>
+                <a href="/read-bottle">Read a Bottle</a> {/* Link to the new component */}
             </StyledForm>
         </StyledContainer>
     );
