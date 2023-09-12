@@ -4,3 +4,4 @@ To get an idea of what i am trying to acheive, the mockup directory can give an 
 Front end:
 I am using an React app for the project
 Im going to make as much components as i can so keep the project modular and with the help of bootstrap react
+Backend: I am using node js and firebase for the authentication of ho can login in the site
