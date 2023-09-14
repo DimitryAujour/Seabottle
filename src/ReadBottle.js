@@ -1,9 +1,12 @@
-
 import styled from 'styled-components';
 import Button from "react-bootstrap/Button";
 import bottleImage from './bottle.png';
 import Form from "react-bootstrap/Form";
-import React from "react"; // assuming you want the same image here too
+import React from "react";
+
+// Firestore imports
+import { db } from './config/firebase';
+import { query, getDocs, collection, updateDoc, doc } from "firebase/firestore";
 
 const StyledContainer = styled.div`
   padding-top: 50px;
@@ -27,21 +30,49 @@ const StyledButton = styled(Button)`
 `;
 
 function ReadBottle() {
+    const [message, setMessage] = React.useState(null);
+
+    React.useEffect(() => {
+        const fetchRandomMessage = async () => {
+            try {
+                const messagesSnapshot = await getDocs(collection(db, "messages"));
+                const allMessages = messagesSnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+                const randomMessage = allMessages[Math.floor(Math.random() * allMessages.length)];
+                setMessage(randomMessage);
+            } catch (error) {
+                console.error('Error fetching a random message:', error);
+            }
+        }
+        fetchRandomMessage();
+    }, []);
+
+    const handleUpvote = async () => {
+        if (message) {
+            const messageRef = doc(db, "messages", message.id);
+            await updateDoc(messageRef, { upvotes: message.upvotes + 1 });
+            setMessage(prevMessage => ({ ...prevMessage, upvotes: prevMessage.upvotes + 1 }));
+        }
+    }
+
     return (
         <StyledContainer>
             <img src={bottleImage} alt="logo image" />
             <h1>Discover a Message</h1>
             <StyledMessage>
-                <p>Here's a message from another user...</p>
+                <p>{message?.body}</p>
             </StyledMessage>
             <div>
                 <StyledButton variant="primary">Next Message</StyledButton>
                 <StyledButton variant="secondary">Previous Message</StyledButton>
-                <StyledButton variant="success">Upvote</StyledButton>
+                <StyledButton variant="success" onClick={handleUpvote}>Upvote</StyledButton>
             </div>
+
             <br/>
 
-            <Form.Control as="textarea" rows={3} placeholder={"type here to reply"} />
+            <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                <br/>
+                <Form.Control as="textarea" rows={3} placeholder={"Reply here"}/>
+            </Form.Group>
             <StyledButton variant="success">Send</StyledButton>
         </StyledContainer>
     );

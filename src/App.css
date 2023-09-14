@@ -42,5 +42,16 @@ h1{
 padding-top: 50px;
 
 }
+/*animation section */
+.fade-enter, .fade-exit-active {
+  opacity: 0;
+}
 
+.fade-enter-active, .fade-exit {
+  opacity: 1;
+}
+
+.fade-enter-active, .fade-exit-active {
+  transition: opacity 4000ms;
+}
 
